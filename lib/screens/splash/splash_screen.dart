@@ -11,27 +11,23 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    // Animation setup
     _controller = AnimationController(
-      duration: const Duration(seconds: 5),
       vsync: this,
+      duration: const Duration(seconds: 3),
     );
 
-    _animation = Tween<double>(
-      begin: 0.5,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
 
     _controller.forward();
 
-    // Navigate to Onboarding after 3 seconds
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const OnboardingScreen()),
@@ -48,14 +44,33 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFD5B055),
+      backgroundColor: const Color(0xFFFBBF24),
       body: Center(
-        child: ScaleTransition(
-          scale: _animation,
-          child: Image.asset(
-            'assets/images/logo.png', // replace with your logo
-            width: 400,
-            height: 400,
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                "UniLink",
+                style: TextStyle(
+                  fontFamily: 'PirataOne',
+                  fontSize: 72,
+                  color: Colors.black,
+                  letterSpacing: 2,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Connecting Campus Life",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 16,
+                  color: Colors.black87,
+                  letterSpacing: 1,
+                ),
+              ),
+            ],
           ),
         ),
       ),

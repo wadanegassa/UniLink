@@ -1,182 +1,142 @@
 import 'package:flutter/material.dart';
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
-}
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _controller = PageController();
-  int _currentPage = 0;
-
-  final List<Map<String, String>> _pages = [
-    {
-      'title': 'Report Lost Items',
-      'description': 'Easily report items you lost on campus.',
-      'image': 'assets/images/onboarding1.png',
-    },
-    {
-      'title': 'Find Lost Items',
-      'description': 'Search and contact students to recover your items.',
-      'image': 'assets/images/onboarding2.png',
-    },
-    {
-      'title': 'Stay Connected',
-      'description': 'Join clubs and stay updated with campus events.',
-      'image': 'assets/images/onboarding3.png',
-    },
-  ];
-
-  Widget _buildPage(Map<String, String> page) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 8,
-          child: TweenAnimationBuilder(
-            tween: Tween<double>(begin: 0, end: 1),
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeOut,
-            builder: (context, double value, child) {
-              return Opacity(
-                opacity: value,
-                child: Transform.translate(
-                  offset: Offset(0, 50 * (1 - value)),
-                  child: child,
-                ),
-              );
-            },
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(page['image']!),
-                  fit: BoxFit.cover, // cover half of the screen
-                ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          // Header Gold Section
+          Container(
+            height: size.height * 0.45,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFFBBF24), Color(0xFFFFE082)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
               ),
             ),
-          ),
-        ),
-        // Bottom half text + button
-        Expanded(
-          flex: 7,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TweenAnimationBuilder(
-                  tween: Tween<double>(begin: 0, end: 1),
-                  duration: const Duration(milliseconds: 800),
-                  builder: (context, double value, child) {
-                    return Opacity(
-                      opacity: value,
-                      child: Transform.translate(
-                        offset: Offset(0, 20 * (1 - value)),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: Text(
-                    page['title']!,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  "UniLink",
+                  style: TextStyle(
+                    fontFamily: 'PirataOne',
+                    fontSize: 60,
+                    color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 15),
-                TweenAnimationBuilder(
-                  tween: Tween<double>(begin: 0, end: 1),
-                  duration: const Duration(milliseconds: 1000),
-                  builder: (context, double value, child) {
-                    return Opacity(
-                      opacity: value,
-                      child: Transform.translate(
-                        offset: Offset(0, 20 * (1 - value)),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: Text(
-                    page['description']!,
-                    style: const TextStyle(fontSize: 16),
-                    textAlign: TextAlign.center,
+                SizedBox(height: 10),
+                Text(
+                  "Bridging Students and Campus Life",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 16,
+                    color: Colors.black87,
                   ),
                 ),
               ],
             ),
           ),
-        ),
-      ],
-    );
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-            controller: _controller,
-            itemCount: _pages.length,
-            onPageChanged: (index) => setState(() => _currentPage = index),
-            itemBuilder: (_, index) => _buildPage(_pages[index]),
-          ),
-          // Dot indicator
-          Positioned(
-            bottom: 100,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                _pages.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.all(4),
-                  width: _currentPage == index ? 24 : 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: _currentPage == index
-                        ? Colors.amber
-                        : Colors.grey[400],
-                    borderRadius: BorderRadius.circular(4),
+          const Spacer(),
+
+          // Body Section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Column(
+              children: [
+                const Text(
+                  "Connect. Share. Discover.",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-            ),
-          ),
-          // Next / Get Started Button
-          Positioned(
-            bottom: 30,
-            left: 20,
-            right: 20,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_currentPage == _pages.length - 1) {
-                  Navigator.pushReplacementNamed(context, '/register');
-                } else {
-                  _controller.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFBBF24),
-                foregroundColor: Colors.black,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 15),
+                const Text(
+                  "Stay updated with lost & found items, announcements, events, and student interactions all in one place.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black54,
+                    fontFamily: 'Poppins',
+                  ),
                 ),
-              ),
-              child: Text(
-                _currentPage == _pages.length - 1 ? 'Get Started' : 'Next',
-              ),
+                const SizedBox(height: 35),
+
+                // Register Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/register');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFBBF24),
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      elevation: 5,
+                    ),
+                    child: const Text(
+                      "Register",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                // Login Button (outlined)
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0xFFFBBF24), width: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      foregroundColor: Colors.black,
+                    ),
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+
+          const Spacer(),
+          const SizedBox(height: 20),
         ],
       ),
     );

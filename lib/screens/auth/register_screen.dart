@@ -61,11 +61,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  CustomTextField(controller: _idController, label: 'ID', icon: Icons.badge_outlined),
+                  CustomTextField(
+                      controller: _idController,
+                      label: 'ID',
+                      icon: Icons.badge_outlined),
                   const SizedBox(height: 15),
-                  CustomTextField(controller: _emailController, label: 'Email', icon: Icons.email_outlined),
+                  CustomTextField(
+                      controller: _emailController,
+                      label: 'Email',
+                      icon: Icons.email_outlined),
                   const SizedBox(height: 15),
-                  CustomTextField(controller: _passwordController, label: 'Password', icon: Icons.lock_outline, isPassword: true),
+                  CustomTextField(
+                      controller: _passwordController,
+                      label: 'Password',
+                      icon: Icons.lock_outline,
+                      isPassword: true),
                   const SizedBox(height: 25),
                   if (_error != null)
                     Text(
@@ -97,7 +107,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 15),
                   TextButton(
-                    onPressed: () => Navigator.pushReplacementNamed(context, '/login'),
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, '/login'),
                     child: const Text(
                       "Already have an account? Log in",
                       style: TextStyle(
