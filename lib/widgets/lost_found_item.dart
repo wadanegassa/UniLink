@@ -39,71 +39,117 @@ class LostFoundItemCard extends StatelessWidget {
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Item info
-          ListTile(
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: imageUrl.isNotEmpty
-                  ? Image.network(imageUrl, width: 60, height: 60, fit: BoxFit.cover)
-                  : Image.asset('assets/placeholder.png', width: 60, height: 60),
-            ),
-            title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text('$desc\n📍 $location\n📅 $date'),
-            isThreeLine: true,
-            trailing: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: isLost ? Colors.redAccent.withOpacity(0.15) : Colors.green.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                status.toUpperCase(),
-                style: TextStyle(
-                  color: isLost ? Colors.red : Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+          // ===== Image on top =====
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
+            child: imageUrl.isNotEmpty
+                ? Image.asset(
+                    imageUrl,
+                    width: double.infinity,
+                    height: 180,
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset(
+                    'assets/images/placeholder.png',
+                    width: double.infinity,
+                    height: 180,
+                    fit: BoxFit.cover,
+                  ),
           ),
 
-          // Chat & Call buttons
+          // ===== Content =====
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Row(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // Navigate to chat page with phone as argument
-                      Navigator.pushNamed(context, '/chat', arguments: phone);
-                    },
-                    icon: const Icon(Iconsax.message, color: Colors.black),
-                    label: const Text('Chat'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFBBF24),
-                      foregroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                // Title & Status
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: isLost
+                            ? Colors.redAccent.withOpacity(0.15)
+                            : Colors.green.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        status.toUpperCase(),
+                        style: TextStyle(
+                          color: isLost ? Colors.red : Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // Call the number (front-end only)
-                      // In a real app, you would use url_launcher
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Calling $phone...')),
-                      );
-                    },
-                    icon: const Icon(Iconsax.call, color: Colors.white),
-                    label: const Text('Call', style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                const SizedBox(height: 6),
+                // Description
+                Text(
+                  desc,
+                  style: const TextStyle(fontSize: 14, color: Colors.black87),
+                ),
+                const SizedBox(height: 6),
+                // Location & Date
+                Row(
+                  children: [
+                    const Icon(Iconsax.location, size: 16, color: Colors.black54),
+                    const SizedBox(width: 4),
+                    Expanded(
+                        child: Text(location, style: const TextStyle(color: Colors.black54))),
+                    const Icon(Iconsax.calendar, size: 16, color: Colors.black54),
+                    const SizedBox(width: 4),
+                    Text(date, style: const TextStyle(color: Colors.black54)),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                // Chat & Call buttons
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/chat', arguments: phone);
+                        },
+                        icon: const Icon(Iconsax.message, color: Colors.black),
+                        label: const Text('Chat'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFBBF24),
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Calling $phone...')),
+                          );
+                        },
+                        icon: const Icon(Iconsax.call, color: Colors.white),
+                        label: const Text('Call', style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

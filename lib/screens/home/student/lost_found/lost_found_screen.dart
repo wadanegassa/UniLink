@@ -13,8 +13,38 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
   String selectedFilter = 'All';
   String searchQuery = '';
 
-  // Dummy items list for front-end only (replace later with backend)
-  final List<Map<String, String>> _items = [];
+  // ===== Sample posts =====
+  final List<Map<String, String>> _items = [
+    {
+      'title': 'Lost Keys',
+      'description':
+          'I lost my car keys near the library. Please contact me if found.',
+      'location': 'Main Library',
+      'date': '24 Oct 2025',
+      'imageUrl': 'assets/images/flutter_lecture.jpg',
+      'status': 'Lost',
+      'phone': '+251911234567',
+    },
+    {
+      'title': 'Found Backpack',
+      'description':
+          'Found a blue backpack near the cafeteria. Asking for the owner to claim it.',
+      'location': 'Cafeteria',
+      'date': '23 Oct 2025',
+      'imageUrl': 'assets/images/cleaning.jpg',
+      'status': 'Found',
+      'phone': '+251912345678',
+    },
+    {
+      'title': 'Lost Notebook',
+      'description': 'Lost my math notebook. Last seen in lecture hall A.',
+      'location': 'Lecture Hall A',
+      'date': '22 Oct 2025',
+      'imageUrl': 'assets/images/library.jpg',
+      'status': 'Lost',
+      'phone': '+251913456789',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +61,10 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header
+            // ===== Header with search =====
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFFFBBF24), Color(0xFFFFE082)],
@@ -42,13 +72,14 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // ===== Header row =====
                   Row(
                     children: [
                       IconButton(
@@ -67,7 +98,7 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
                     ],
                   ),
                   const SizedBox(height: 15),
-                  // Search bar
+                  // ===== Search bar =====
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -93,9 +124,10 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
                 ],
               ),
             ),
+
             const SizedBox(height: 15),
 
-            // Filter buttons
+            // ===== Filter buttons =====
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -108,9 +140,10 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
                 ],
               ),
             ),
+
             const SizedBox(height: 15),
 
-            // Report Lost & Found buttons
+            // ===== Report Lost & Found buttons =====
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -149,14 +182,16 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
                 ],
               ),
             ),
+
             const SizedBox(height: 15),
 
-            // List of items
+            // ===== Posts feed =====
             Expanded(
               child: filteredItems.isEmpty
                   ? const Center(child: Text('No items reported yet.'))
                   : ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       itemCount: filteredItems.length,
                       itemBuilder: (context, index) {
                         final item = filteredItems[index];
@@ -164,8 +199,8 @@ class _LostFoundScreenState extends State<LostFoundScreen> {
                           title: item['title']!,
                           desc: item['description']!,
                           location: item['location']!,
-                          date: item['date'] ?? '',
-                          imageUrl: item['imageUrl'] ?? '',
+                          date: item['date']!,
+                          imageUrl: item['imageUrl']!,
                           status: item['status']!,
                           phone: item['phone']!,
                         );

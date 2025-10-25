@@ -39,13 +39,14 @@ class _ReportLostScreenState extends State<ReportLostScreen> {
       backgroundColor: const Color(0xFFFDFCFB),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFFFBBF24), Color(0xFFFFE082)],
@@ -86,7 +87,9 @@ class _ReportLostScreenState extends State<ReportLostScreen> {
                     border: Border.all(color: Colors.black12),
                   ),
                   child: _imageFile == null
-                      ? const Center(child: Icon(Iconsax.image, size: 50, color: Colors.black38))
+                      ? const Center(
+                          child: Icon(Iconsax.image,
+                              size: 50, color: Colors.black38))
                       : ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.file(_imageFile!, fit: BoxFit.cover),
@@ -94,13 +97,25 @@ class _ReportLostScreenState extends State<ReportLostScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              CustomTextField(controller: _titleController, label: 'Title', icon: Icons.title),
+              CustomTextField(
+                  controller: _titleController,
+                  label: 'Title',
+                  icon: Icons.title),
               const SizedBox(height: 15),
-              CustomTextField(controller: _descController, label: 'Description', icon: Icons.description),
+              CustomTextField(
+                  controller: _descController,
+                  label: 'Description',
+                  icon: Icons.description),
               const SizedBox(height: 15),
-              CustomTextField(controller: _locationController, label: 'Location', icon: Icons.location_on),
+              CustomTextField(
+                  controller: _locationController,
+                  label: 'Location',
+                  icon: Icons.location_on),
               const SizedBox(height: 15),
-              CustomTextField(controller: _phoneController, label: 'Phone Number', icon: Icons.phone),
+              CustomTextField(
+                  controller: _phoneController,
+                  label: 'Phone Number',
+                  icon: Icons.phone),
               const SizedBox(height: 25),
               SizedBox(
                 width: double.infinity,

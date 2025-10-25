@@ -1,7 +1,7 @@
-
 import 'package:campus_connect/screens/auth/login_screen.dart';
 import 'package:campus_connect/screens/auth/register_screen.dart';
 import 'package:campus_connect/screens/home/student/announcement_screen.dart';
+import 'package:campus_connect/screens/home/student/bottom_nav/chat/chat_screen.dart';
 import 'package:campus_connect/screens/home/student/emergency_screen.dart';
 import 'package:campus_connect/screens/home/student/events_screen.dart';
 import 'package:campus_connect/screens/home/student/fresh_material.dart';
@@ -21,27 +21,27 @@ class CampusConnect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Campus Connect',
-      theme: AppTheme.lightTheme,
-              initialRoute: '/splash',
-              routes: {
-                '/splash': (context) => const SplashScreen(),
-                '/onboarding': (context) => const OnboardingScreen(),
-                '/login': (context) => const LoginScreen(),
-                '/register': (context) => const RegisterScreen(),
-                '/student_home': (context) => const StudentHomeScreen(),
-                '/union_home': (context) => const UnionHomeScreen(),
-                '/lost_found': (context) => const LostFoundScreen(),
-                '/report_lost': (context) => const ReportLostScreen(),
-                '/report_found': (context) => const ReportFoundScreen(),
-                '/announcements': (context) => const AnnouncementScreen(),
-                '/events': (context) => const EventsScreen(),
-                '/fresh_pdfs': (context) => const FreshMaterial(),
-                '/emergency': (context) => const EmergencyScreen(),
-                '/suggestions': (context) => const SuggestionsScreen(),
-              });
-        }
-
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Campus Connect',
+        theme: AppTheme.lightTheme,
+        initialRoute: '/splash',
+        routes: {
+          '/splash': (context) => const SplashScreen(),
+          '/onboarding': (context) => const OnboardingScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/student_home': (context) => const StudentHomeScreen(),
+          '/union_home': (context) => const UnionHomeScreen(),
+          '/lost_found': (context) => const LostFoundScreen(),
+          '/report_lost': (context) => const ReportLostScreen(),
+          '/report_found': (context) => const ReportFoundScreen(),
+          '/announcements': (context) => const AnnouncementsScreen(),
+          '/events': (context) => const EventsScreen(),
+          '/fresh_pdfs': (context) => const FreshMaterial(),
+          '/emergency': (context) => const EmergencyScreen(),
+          '/suggestions': (context) => const SuggestionScreen(),
+          '/chat':(context) => const ChatScreen(),
+        });
   }
+}
