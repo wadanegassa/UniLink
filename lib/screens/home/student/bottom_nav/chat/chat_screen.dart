@@ -1,52 +1,71 @@
-import 'package:campus_connect/screens/home/student/bottom_nav/chat/chat_conversation.dart';
-import 'package:flutter/material.dart';
 import 'package:campus_connect/widgets/chat_tile.dart';
+import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'chat_conversation.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 
-  final List<Map<String, String>> chats = const [
-    {
-      'name': 'Alice Johnson',
-      'lastMessage': 'Hey, did you submit the assignment?',
-      'time': '09:45 AM',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=1',
-    },
-    {
-      'name': 'Bob Smith',
-      'lastMessage': 'I found your notebook!',
-      'time': 'Yesterday',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=2',
-    },
-    {
-      'name': 'Campus Union',
-      'lastMessage': 'Don’t forget the meeting tomorrow.',
-      'time': 'Mon',
-      'avatarUrl': 'https://i.pravatar.cc/150?img=3',
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> chats = [
+      {
+        'name': 'Union Office',
+        'message': 'Your event report has been approved.',
+        'time': '2:45 PM',
+        'image': 'https://i.pravatar.cc/150?img=5'
+      },
+      {
+        'name': 'Security Team',
+        'message': 'Lost item found near library.',
+        'time': '11:20 AM',
+        'image': 'https://i.pravatar.cc/150?img=12'
+      },
+      {
+        'name': 'Student Council',
+        'message': 'Meeting starts at 5:00 PM.',
+        'time': 'Yesterday',
+        'image': 'https://i.pravatar.cc/150?img=8'
+      },
+    ];
+
     return Scaffold(
+      backgroundColor: const Color(0xFFFDFCFB),
       appBar: AppBar(
-        title: const Text('Chats'),
+        backgroundColor: const Color(0xFFFBBF24),
+        elevation: 0,
+        title: const Text(
+          'Messages',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: Icon(Iconsax.search_normal, color: Colors.black),
+          ),
+        ],
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(12),
         itemCount: chats.length,
         itemBuilder: (context, index) {
           final chat = chats[index];
           return ChatTile(
             name: chat['name']!,
-            lastMessage: chat['lastMessage']!,
+            message: chat['message']!,
             time: chat['time']!,
-            avatarUrl: chat['avatarUrl']!,
+            imageUrl: chat['image']!,
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => ConversationScreen(chatName: chat['name']!),
+                  builder: (_) => ChatConversationScreen(
+                    name: chat['name']!,
+                    imageUrl: chat['image']!,
+                  ),
                 ),
               );
             },
@@ -55,10 +74,8 @@ class ChatScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFFFBBF24),
-        onPressed: () {
-          // Open new chat screen (could be a contact selection page)
-        },
-        child: const Icon(Iconsax.edit, color: Colors.black),
+        onPressed: () {},
+        child: const Icon(Iconsax.message_add, color: Colors.white),
       ),
     );
   }

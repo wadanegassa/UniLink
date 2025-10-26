@@ -10,7 +10,6 @@ import 'package:campus_connect/screens/home/student/lost_found/report_found.dart
 import 'package:campus_connect/screens/home/student/lost_found/report_lost.dart';
 import 'package:campus_connect/screens/home/student/student_home.dart';
 import 'package:campus_connect/screens/home/student/suggestion_screen.dart';
-import 'package:campus_connect/screens/home/union_home_screen.dart';
 import 'package:campus_connect/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/splash/splash_screen.dart';
@@ -32,7 +31,6 @@ class CampusConnect extends StatelessWidget {
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
           '/student_home': (context) => const StudentHomeScreen(),
-          '/union_home': (context) => const UnionHomeScreen(),
           '/lost_found': (context) => const LostFoundScreen(),
           '/report_lost': (context) => const ReportLostScreen(),
           '/report_found': (context) => const ReportFoundScreen(),
@@ -41,7 +39,7 @@ class CampusConnect extends StatelessWidget {
           '/fresh_pdfs': (context) => const FreshMaterial(),
           '/emergency': (context) => const EmergencyScreen(),
           '/suggestions': (context) => const SuggestionScreen(),
-          '/chat':(context) => const ChatScreen(),
+          '/chat': (context) => const ChatScreen(),
         });
   }
 }
